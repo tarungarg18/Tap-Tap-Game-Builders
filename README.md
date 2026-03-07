@@ -11,11 +11,11 @@ JSON-driven modular game engine.
 
 ## Architecture
 
-docs/architecture.md
+[Architecture Documentation](docs/architecture.md)
 
 ## Engine Loop
 
-[Architecture Documentation](docs/architecture.md)
+[Engine Loop](docs/engine-loop.md)
 
 ## JSON Configuration
 
@@ -109,4 +109,5 @@ taptap-game-engine/
 | Leaderboard                      |
 ----------------------------------
 ``
+
 
