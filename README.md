@@ -61,95 +61,51 @@ taptap-game-engine/
 ├── package.json
 └── .gitignore
 ```
+## Game Engine Blueprint
+```
+                +----------------------+
+                |     Game JSON        |
+                | (Game Definition)    |
+                +----------+-----------+
+                           |
+                           v
++------------------------------------------------+
+|                GAME ENGINE CORE                |
+|------------------------------------------------|
+| Game Loader                                    |
+| Game Renderer                                  |
+| Timer Manager                                  |
+| Score Manager                                  |
+| Input Handler                                  |
+| Plugin Manager                                 |
+| State Manager                                  |
++------------+------------------+----------------+
+             |                  |
+             v                  v
 
+     +---------------+     +-----------------+
+     | Game Plugins  |     | Leaderboard API |
+     | Sudoku Game   |     | Submit Score    |
+     | Word Builder  |     | Fetch Rankings  |
+     +---------------+     +-----------------+
 
-Content:
-
-```markdown
-# Core Engine Loop
-
-The TaPTaP engine follows a standard game loop pattern.
-
-Game Loop Stages:
-
-1. Input Handling
-2. Game State Update
-3. Physics Processing
-4. Rendering
-
-Pseudo Code:
-
-while (gameRunning) {
-
-   handleInput()
-
-   updateGameState()
-
-   applyPhysics()
-
-   renderFrame()
-
-}
-# Reusability Model
-
-TaPTaP engine is designed for reuse through JSON configuration.
-
-Developers do not need to modify engine code.
-
-They only change:
-
-- Entities
-- Physics rules
-- Game parameters
-- Input mapping
-
-Example:
-
-Different games possible:
-
-1. Flappy Bird
-2. Runner Game
-3. Tap Dodger
-4. Jump Platformer
-
-All using same engine.
-
-Game behaviour defined in JSON config.
-{
-  "game": {
-    "title": "Tap Dodger",
-    "fps": 60
-  },
-
-  "player": {
-    "speed": 5,
-    "jumpForce": 12,
-    "gravity": 0.5
-  },
-
-  "obstacles": {
-    "spawnRate": 2,
-    "speed": 4
-  },
-
-  "controls": {
-    "tap": "jump"
-  },
-
-  "score": {
-    "increment": 10
-  }
-}
-
-function startGameLoop(update, render) {
-  function loop() {
-    update();
-    render();
-    requestAnimationFrame(loop);
-  }
-
-  loop();
-}
-
-module.exports = startGameLoop;
-
+```
+## UI Layout
+```
+----------------------------------
+| TapTap Game Engine             |
+----------------------------------
+| Game Selector                  |
+| [Sudoku] [Word Builder]        |
+----------------------------------
+| Timer        | Score           |
+----------------------------------
+|                                  |
+|        GAME BOARD                |
+|                                  |
+----------------------------------
+| Submit Score | Restart Game     |
+----------------------------------
+| Leaderboard                      |
+----------------------------------
+``
