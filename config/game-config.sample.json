@@ -1,27 +1,25 @@
-Content:
+{
+  "game": {
+    "title": "Tap Dodger",
+    "fps": 60
+  },
 
-```markdown
-# Core Engine Loop
+  "player": {
+    "speed": 5,
+    "jumpForce": 12,
+    "gravity": 0.5
+  },
 
-The TaPTaP engine follows a standard game loop pattern.
+  "obstacles": {
+    "spawnRate": 2,
+    "speed": 4
+  },
 
-Game Loop Stages:
+  "controls": {
+    "tap": "jump"
+  },
 
-1. Input Handling
-2. Game State Update
-3. Physics Processing
-4. Rendering
-
-Pseudo Code:
-
-while (gameRunning) {
-
-   handleInput()
-
-   updateGameState()
-
-   applyPhysics()
-
-   renderFrame()
-
+  "score": {
+    "increment": 10
+  }
 }
