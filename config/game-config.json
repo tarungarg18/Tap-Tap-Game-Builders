@@ -3,12 +3,10 @@
     "title": "TapTap Demo Game",
     "fps": 30
   },
-
-  "player": {
-    "startScore": 0
+  "controls": {
+    "scoreKey": "space"
   },
-
   "rules": {
-    "tapIncrement": 8
+    "tapIncrement": 2
   }
 }
