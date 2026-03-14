@@ -1,4 +1,5 @@
-{
+[
+  {
   "id": "game001",
   "type": "sudoku",
   "title": "Sudoku Challenge",
@@ -32,3 +33,4 @@
     "bonusLength": 5
   }
 }
+]
