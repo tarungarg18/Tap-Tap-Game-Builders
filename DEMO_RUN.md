@@ -27,7 +27,7 @@ node examples/demo.js
                      ▼
               CONFIG LOADER
                      │
-                     ▼
+                     ▼ 
                  GAME ENGINE
                      │
           ┌──────────┴──────────┐
