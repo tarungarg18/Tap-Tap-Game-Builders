@@ -8,13 +8,15 @@ Input → Update Systems → Repeat
 
 Each system registered in the engine is updated every frame.
 
-### Demo Controls
+## Demo Controls
 SPACE  → Increase score
+
 CTRL+C → Exit program
 
 
 ## Run on Local-System
 cd TAP-TAP
+
 node examples/demo.js
 
 ## Architecture 
