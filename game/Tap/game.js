@@ -5,13 +5,14 @@ class TapGame {
         this.increment = config.rules.tapIncrement || 1;
         this.target = config.rules.targetScore || 10;
         this.inputKey = config.controls.scoreKey || "tap";
+        this.needsRender = true;
     }
 
     init() {
         console.log("Tap Game Started");
         console.log(`Target Score: ${this.target}`);
         console.log(`Type "${this.inputKey}" and press Enter`);
-        this.render();
+        this.needsRender = true;
     }
 
     handleInput(input) {
@@ -24,7 +25,7 @@ class TapGame {
                 process.exit();
             }
 
-            this.render();
+            this.needsRender = true;
         } else {
             console.log(`Type "${this.inputKey}" to score`);
         }
