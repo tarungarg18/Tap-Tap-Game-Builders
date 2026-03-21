@@ -4,11 +4,12 @@ class SudokuGame {
         this.board = config.board;
         this.solution = config.solution;
         this.gridSize = config.gridSize;
+        this.needsRender = true;
     }
 
     init() {
         console.log("Sudoku Game Started");
-        this.render();
+        this.needsRender = true;
     }
 
     handleInput(input) {
@@ -24,7 +25,7 @@ class SudokuGame {
 
         if (this.solution[r][c] === val) {
             this.board[r][c] = val;
-            this.render();
+            this.needsRender = true;
         } else {
             console.log("Wrong value");
         }
