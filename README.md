@@ -21,9 +21,12 @@ TAP-TAP ENGINE
 │     │
 │     ├── system/
 │     │     ├── inputsystem.js    (captures user input)
+│     │     ├── leaderboard.js    (Update Leaderboard)
+│     │     ├── timersystem.js    (Handle Time)
 │     │     └── scoresystem.js    (optional / reusable)
 │     │
 │     └── utils/
+│           ├── apiclient.js    (Send LeaderBoard to Client)
 │           └── configloader.js   (loads JSON config)
 │
 ├── game/
@@ -44,8 +47,9 @@ TAP-TAP ENGINE
 │     └── sampleGame.js
 │     └── DEMO_RUN.ms
 │
-├── runner.js                     (entry point)
-└── README.md
+├── Prototype.md
+├── runner.js        (entry point)               
+├── README.md
 ├── package.json
 └── .gitignore
 ```
