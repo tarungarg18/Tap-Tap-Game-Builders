@@ -1,17 +1,39 @@
 {
   "type": "tap",
+  "level": "level3.json",
+
   "game": {
-    "title": "Tap Game Hard",
-    "fps": 30
+    "title": "Tap Hard",
+    "fps": 15
   },
+
   "player": {
-    "startScore": 5
+    "startScore": 0
   },
+
   "rules": {
-    "tapIncrement": 3,
-    "targetScore": 50
+    "TAP": 3,
+    "INVALID": -3,
+    "ERROR": -7,
+    "WIN": 30
   },
-  "controls": {
-    "scoreKey": "hit"
+
+  "winCondition": {
+    "type": "SCORE",
+    "value": 50
+  },
+
+  "input": {
+    "key": "tap"
+  },
+
+  "messages": {
+    "invalid": "Careful!",
+    "correct": "Nice!",
+    "win": "Level 3 Mastered!"
+  },
+
+  "timer": {
+    "limit": 12
   }
 }

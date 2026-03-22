@@ -1,22 +1,65 @@
 class InputSystem {
+    constructor(engine) {
+        if (!engine) throw new Error("Engine reference required");
 
-    constructor(game) {
-
-        this.game = game;
+        this.engine = engine;
         this.buffer = "";
+        this.active = false;
 
-        process.stdin.setRawMode(true);
-        process.stdin.resume();
-        process.stdin.setEncoding("utf8");
+        this.init();
+    }
 
-        process.stdin.on("data", (key) => {
+    init() {
+        try {
+            this.enable();
 
-            // ENTER pressed
+            process.stdin.on("data", (key) => {
+                if (!this.active) return;
+                this.handleKey(key);
+            });
+
+        } catch (err) {
+            this.handleError("INIT_ERROR", err);
+        }
+    }
+
+    enable() {
+        try {
+            this.active = true;
+
+            process.stdin.setRawMode(true);
+            process.stdin.resume();
+            process.stdin.setEncoding("utf8");
+
+            process.stdout.write("> ");
+
+        } catch (err) {
+            this.handleError("ENABLE_ERROR", err);
+        }
+    }
+
+    disable() {
+        try {
+            this.active = false;
+
+            try {
+                process.stdin.setRawMode(false);
+            } catch {}
+
+        } catch (err) {
+            this.handleError("DISABLE_ERROR", err);
+        }
+    }
+
+    handleKey(key) {
+        try {
             if (key === "\r") {
-                console.log(); // move to next line
+                console.log();
 
-                if (this.buffer.length > 0) {
-                    this.game.handleInput(this.buffer);
+                const input = this.buffer.trim();
+
+                if (input.length > 0) {
+                    this.engine.receiveInput(input);
                 }
 
                 this.buffer = "";
@@ -24,33 +67,30 @@ class InputSystem {
                 return;
             }
 
-            // BACKSPACE
             if (key === "\u0008" || key === "\u007f") {
                 if (this.buffer.length > 0) {
                     this.buffer = this.buffer.slice(0, -1);
-
-                    // erase last char from terminal
                     process.stdout.write("\b \b");
                 }
                 return;
             }
 
-            // CTRL+C exit
             if (key === "\u0003") {
+                console.log("\nExiting...");
                 process.exit();
             }
 
-            // NORMAL CHARACTER
             this.buffer += key;
             process.stdout.write(key);
-        });
 
-        // prompt
-        process.stdout.write("> ");
+        } catch (err) {
+            this.handleError("KEY_ERROR", err);
+        }
     }
 
-    update() {}
-
+    handleError(type, err) {
+        console.error(` [InputSystem ${type}]`, err.message);
+    }
 }
 
 module.exports = InputSystem;

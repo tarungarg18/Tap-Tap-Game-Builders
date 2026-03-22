@@ -1,10 +1,47 @@
 {
   "type": "sudoku",
+  "level": "level2.json",
+
   "game": {
     "title": "Sudoku Medium",
-    "fps": 1
+    "fps": 10
   },
+
+  "player": {
+    "startScore": 0
+  },
+
+  "rules": {
+    "MOVE": 15,
+    "INVALID": -5,
+    "ERROR": -10,
+    "WIN": 150
+  },
+
+  "input": {
+    "format": "r,c,v",
+    "separator": ",",
+    "expectedLength": 3
+  },
+
+  "validation": {
+    "allowOverwrite": false
+  },
+
+  "messages": {
+    "invalidFormat": "Use format r,c,v",
+    "invalidCell": "Out of bounds",
+    "filled": "Already filled",
+    "wrong": "Wrong value",
+    "correct": "Correct move"
+  },
+
+  "timer": {
+    "limit": 150
+  },
+
   "gridSize": 9,
+
   "board": [
     [0,0,0,2,6,0,7,0,1],
     [6,8,0,0,7,0,0,9,0],
@@ -16,6 +53,7 @@
     [0,4,0,0,5,0,0,3,6],
     [7,0,3,0,1,8,0,0,0]
   ],
+
   "solution": [
     [4,3,5,2,6,9,7,8,1],
     [6,8,2,5,7,1,4,9,3],

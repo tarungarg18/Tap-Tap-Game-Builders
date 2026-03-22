@@ -1,46 +1,107 @@
 class SudokuGame {
-
     constructor(config) {
+        this.config = config;
+
         this.board = config.board;
         this.solution = config.solution;
-        this.gridSize = config.gridSize;
+
+        this.size = config.gridSize;
+
+        this.inputConfig = config.input || {};
+        this.validation = config.validation || {};
+        this.messages = config.messages || {};
+
         this.needsRender = true;
+        this.gameOver = false;
     }
 
     init() {
-        console.log("Sudoku Game Started");
-        this.needsRender = true;
+        console.log(` ${this.config?.game?.title}`);
     }
 
     handleInput(input) {
+        try {
+            const separator = this.inputConfig.separator || " ";
+            const expectedLength = this.inputConfig.expectedLength;
 
-        const parts = input.split(" ");
+            const parts = input.split(separator);
 
-        if (parts.length !== 3) {
-            console.log("Use: row col value");
-            return;
-        }
+            if (parts.length !== expectedLength) {
+                return {
+                    type: "INVALID",
+                    message: this.messages.invalidFormat
+                };
+            }
 
-        const [r, c, val] = parts.map(Number);
+            const [r, c, val] = parts.map(Number);
 
-        if (this.solution[r][c] === val) {
-            this.board[r][c] = val;
-            this.needsRender = true;
-        } else {
-            console.log("Wrong value");
+            if ([r, c, val].some(isNaN)) {
+                return {
+                    type: "INVALID",
+                    message: this.messages.invalidFormat
+                };
+            }
+
+            if (!this.isValidCell(r, c)) {
+                return {
+                    type: "INVALID",
+                    message:
+                        this.messages.invalidCell 
+                };
+            }
+
+            if (
+                !this.validation.allowOverwrite &&
+                this.board[r][c] !== 0
+            ) {
+                return {
+                    type: "INVALID",
+                    message:
+                        this.messages.filled 
+                };
+            }
+
+            if (this.solution[r][c] === val) {
+                this.board[r][c] = val;
+
+                if (this.isSolved()) {
+                    this.gameOver = true;
+                    return { type: "WIN" };
+                }
+
+                return { type: "MOVE" };
+            }
+
+            return {
+                type: "INVALID",
+                message: this.messages.wrong
+            };
+
+        } catch (err) {
+            return { type: "ERROR" };
         }
     }
 
     update() {
-        if (this.isSolved()) {
-            console.log("🎉 Sudoku Solved!");
-            process.exit();
-        }
     }
 
     render() {
-        console.log("\nBoard:");
         console.table(this.board);
+
+        console.log(
+            `Enter: ${this.inputConfig.format}`
+        );
+    }
+
+    isValidCell(r, c) {
+        return (
+            Number.isInteger(r) &&
+            Number.isInteger(c) &&
+            r >= 0 &&
+            r < this.size &&
+            c >= 0 &&
+            c < this.size
+        );
     }
 
     isSolved() {

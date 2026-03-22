@@ -1,15 +1,35 @@
 class ScoreSystem {
-
     constructor(config) {
-        this.currentScore = config.player.startScore;
-        this.incrementValue = config.rules.tapIncrement;
+        try {
+            this.score = config?.player?.startScore || 0;
+            this.rules = config?.rules || {};
+        } catch (err) {
+            console.error("[ScoreSystem INIT ERROR]", err.message);
+            this.score = 0;
+            this.rules = {};
+        }
     }
 
-    addScore() {
-        this.currentScore += this.incrementValue;
-        console.log("Current Score:", this.currentScore);
+    apply(action) {
+        try {
+            if (!action || !action.type) return;
+
+            const value = this.rules[action.type];
+
+            if (typeof value === "number") {
+                this.score += value;
+            } else if (typeof action.scoreDelta === "number") {
+                this.score += action.scoreDelta;
+            }
+
+        } catch (err) {
+            console.error("[ScoreSystem APPLY ERROR]", err.message);
+        }
     }
 
+    getScore() {
+        return this.score;
+    }
 }
 
 module.exports = ScoreSystem;

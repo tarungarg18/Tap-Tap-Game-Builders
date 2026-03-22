@@ -1,17 +1,39 @@
 {
   "type": "tap",
+  "level": "level1.json",
+
   "game": {
-    "title": "Tap Game Easy",
-    "fps": 30
+    "title": "Tap Easy",
+    "fps": 10
   },
+
   "player": {
     "startScore": 0
   },
+
   "rules": {
-    "tapIncrement": 1,
-    "targetScore": 10
+    "TAP": 2,
+    "INVALID": -1,
+    "ERROR": -5,
+    "WIN": 10
   },
-  "controls": {
-    "scoreKey": "tap"
+
+  "winCondition": {
+    "type": "TAP_COUNT",
+    "value": 10
+  },
+
+  "input": {
+    "key": "tap"
+  },
+
+  "messages": {
+    "invalid": "Type 'tap' only",
+    "correct": "Nice tap!",
+    "win": "You reached the target!"
+  },
+
+  "timer": {
+    "limit": 20
   }
 }
